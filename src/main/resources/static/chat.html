@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Page</title>
+  <style>
+	body {
+	     margin: 0;
+	     font-family: 'Segoe UI', sans-serif;
+	     display: flex;
+	     height: 100vh;
+	   }
+
+	   .users {
+	     width: 270px;
+		 height:94.5%;
+	     background: linear-gradient(to top right, #673ab7, #ff7043);
+	     color: white;
+	     padding: 20px;
+	     overflow-y: auto;
+	   }
+
+	   .users h2 {
+		 width:fit-content;
+		 margin-left:45px;
+	     font-size: 30px;
+	     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	     padding-bottom: 10px;
+	   }
+
+	   #usersList div {
+	     margin: 10px 0;
+	     padding: 8px;
+	     background: rgba(255, 255, 255, 0.2);
+	     border-radius: 6px;
+		 overflow-y: scroll;
+	   }
+
+	   .chat {
+		 position:absolute;
+		 top:35px;
+		 left:345px;
+		 width:75%;
+		 height:90%;
+	   }
+
+	   #chatbox {
+		 display: flex;
+		 flex-direction:column;
+	     border-radius: 10px;
+		 background-color: white;
+	     padding: 15px;
+	     overflow-y: scroll;
+	     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+		 height:85%;
+	   }
+	   
+	   #chatbox::-webkit-scrollbar{
+		width:5px;
+	   }
+	   
+	   #chatbox::-webkit-scrollbar-track{
+		background:#f1f1f1;
+		border-radius:10px;
+	   }	
+	   
+	   #chatbox::-webkit-scrollbar-thumb {
+	     background: #888; 
+	     border-radius: 10px;
+	   }
+	   
+	   #chatbox::-webkit-scrollbar-thumb:hover {
+	     background: #555; 
+		 cursor:pointer;
+	   }
+	   
+	   .input-area {
+	     display: flex;
+	     margin-top: 15px;
+	   }
+
+	   input{
+		 width:90%;
+	     padding: 12px;
+	     font-size: 16px;
+	     border: 1px solid #ccc;
+	     border-radius: 8px;
+	     outline: none;
+	   }
+	   .userBox{
+		 background :#e0e0e0; 
+		 padding: 10px 15px;
+		 margin: 10px 0;
+		 border-radius: 12px;
+		 box-shadow: 0 1px 3px rgb(128, 128, 128);
+		 width:90%;
+		 word-wrap: break-word;
+		 font-size: 16px;
+		 color:black;
+		 cursor: pointer;
+	   }
+	   
+	   .message-box {
+	     background-color: #e0e0e0; 
+	     padding: 10px 15px;
+	     margin: 8px 0;
+	     border-radius: 12px;
+	     width:fit-content;
+	     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	     word-wrap: break-word;
+	     font-size: 15px;
+	   }
+	   
+	   .my-message {
+	     background-color: #e0e0e0;
+	     align-self: flex-end;
+	     text-align: right;
+	   }
+
+	   .other-message {
+	     background-color: #e0e0e0;
+	     align-self: flex-start;
+	     text-align: left;
+	   }
+
+	   button {
+	     padding: 12px 30px;
+	     margin-left: 10px;
+	     background: linear-gradient(to bottom left, #673ab7, #ff7043);
+	     color: white;
+	     border: none;
+	     border-radius: 8px;
+	     cursor: pointer;
+	     font-size: 16px;
+	   }
+
+	   button:hover {
+	     background-color: #303f9f;
+	   }
+	   
+	   @media (max-width:1024px){
+	   	   		body{
+	   			 width: 100%;
+	   	   		 height:90%;
+	   	   		}
+	   			.users {
+	   			  width: 270px;
+	   			  height:835px;
+	   			  background: linear-gradient(to top right, #673ab7, #ff7043);
+	   			  color: white;
+	   			  padding: 20px;
+	   		    }
+	   			.users h2 {
+	   			  width:fit-content;
+	   	    	  margin-left:45px;
+	   			  font-size: 30px;
+	   			  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	   			  padding-bottom: 10px;
+	   		    }
+	   	   		  #userList{
+	   				margin: 10px 0;
+	   			    padding: 8px;
+	   				border-radius: 6px;
+	   				width:95%;
+	   				height:100vh;
+	   				overflow-y: scroll;
+	   			}
+	   			.message-box{
+	   				font-size:20px;
+	   			}
+	   	   		  .userBox{
+	   				background :#e0e0e0; 
+	   			    padding: 15px 15px;
+	   			    margin: 10px 0;
+	   				border-radius: 12px;
+	   				box-shadow: 0 1px 3px rgb(128, 128, 128);
+	   				width:85%;
+	   				word-wrap: break-word;
+	   				color:black;
+	   				cursor: pointer;
+	   				font-size:21px;
+	   	   		  }
+	   			  button{
+	   				margin: 0px 5px;
+	   			  }
+	   	   		  .chat{
+	   	   		  	top:40px;
+	   	   		  	width:100%;
+	   	   		  	height:830px;
+	   				
+	   	   		  }
+	   	   		  .chat .input-area{
+	   	   		  	  margin-left:5px;
+	   	   		  }
+	   			  .chat input{
+	   				height:35px;
+	   				font-size: 20px;
+	   			  }
+	   			  button {
+	   				font-size: 20px;
+	   			}
+	   	   	   }
+	   
+	   
+	   @media (max-width:770px){
+	   		body{
+			 width: 100%;
+	   		 height:90%;
+	   		}
+			.users {
+			  width: 270px;
+			  height:890px;
+			  background: linear-gradient(to top right, #673ab7, #ff7043);
+			  color: white;
+			  padding: 20px;
+		      overflow-y: auto;
+		    }
+			.users h2 {
+			  width:fit-content;
+	    	  margin-left:45px;
+			  font-size: 30px;
+			  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+			  padding-bottom: 10px;
+		    }
+	   		  #userList{
+				margin: 10px 0;
+			    padding: 8px;
+				border-radius: 6px;
+				width:95%;
+				height:100vh;
+				overflow-y: scroll;
+			}
+			.message-box{
+				font-size:20px;
+			}
+	   		 .userBox{
+				background :#e0e0e0; 
+			    padding: 15px 15px;
+			    margin: 10px 0;
+				border-radius: 12px;
+				box-shadow: 0 1px 3px rgb(128, 128, 128);
+				width:85%;
+				word-wrap: break-word;
+				color:black;
+				cursor: pointer;
+				font-size:21px;
+	   		  }
+			  button{
+				margin: 0px 5px;
+			  }
+	   		  .chat{
+	   		  	top:40px;
+	   		  	width:100%;
+	   		  	height:900px;
+				
+	   		  }
+	   		  .chat .input-area{
+	   		  	  margin-left:5px;
+	   		  }
+			  .chat input{
+				height:35px;
+				font-size: 20px;
+			  }
+			  button {
+				font-size: 20px;
+			}
+	   	   }
+		   
+		   @media (max-width:426px){
+		   		body{
+		   			height:100%;
+		   		}
+		   		  .users{
+		   			position:absolute;
+		   			width:90%;
+		   			height:80px;
+		   			display: flex;
+		   		  }
+		   		  .users h2{
+		   			margin:0px;
+		   			padding:0px;
+		   			margin-top:-5px;
+		   			padding-bottom: 0px;
+		   			border:none;
+		   		  }
+		   		  #userList{
+		   			display: inline;
+		   			overflow-x: scroll;
+		   			width:100%;
+		   			height:35px;
+		   			position:absolute;
+		   			left:0px;
+		   			top:59px;
+		   		  }
+				  .message-box{
+				  	font-size:15px;
+				  }
+		   		  .userBox{
+		   			word-wrap: normal;
+		   			display: inline;
+		   			position:relative;
+		   			top:5px;
+		   			margin:5px 4px;
+		   			margin-top:20px;
+		   			width:fit-content;
+					padding: 6px;
+					font-size: 16px;
+					border-radius: 4px;
+					
+		   		  }
+		   		  .chat{
+		   		  	position:relative;
+		   		  	top:123px;
+		   		  	width:100%;
+		   		  	height:600px;
+		   		  	left:0px;
+		   		  }
+		   		  .chat .input-area{
+		   		  	  margin-left:5px;
+					  font-size:15px;
+					  height:40px;
+		   		  }
+				  .chat input{
+				  	height:15px;
+				  	font-size: 15px;
+				   }
+				   button {
+				  	font-size: 15px;
+				  }
+		   	   }
+    </style>
+</head>
+<body>
+	
+	<div class="users">
+		<h2>Online Users</h2>
+		<div id="userList"></div>
+	</div>
+	
+	<div class="chat">
+		<div id="chatbox"></div>
+		<div class="input-area">
+		<input type="text" id="message" placeholder="Type Message">
+		<button onclick="sendMessage()">Send</button>
+	</div>
+	</div>
+	
+<script>
+	const name = localStorage.getItem("name");
+	let socket;
+	
+	if(!name){
+		alert("No name found. Go back and enter the name.");
+		window.location.href="index.html";
+	}
+	else{
+		
+		fetch("/messages/"+name)
+		.then(res => res.json())
+		.then(messages => {
+			const chatbox = document.getElementById("chatbox");
+			messages.forEach(msg => {
+				const div= document.createElement("div");
+				div.className = "message-box " + (msg.sender === name ? "my-message" : "other-message");
+				const prefix = msg.private ? "[Private] " : "";
+				const target = msg.recipient ? `${msg.recipient} ` : "";
+				
+				const displayName = msg.sender === name ? "You" : msg.sender;
+				div.innerHTML = `<strong style="color:red">${prefix}${displayName}</strong>: ${msg.content}`;
+				chatbox.appendChild(div);
+			});
+			chatbox.scrollTop=chatbox.scrollHeight;
+		});
+		
+		socket = new WebSocket("ws://192.168.1.2:8080/chat");
+		
+		socket.onopen=()=>{
+			console.log("Web socket is opened....");
+			socket.send(name);
+		};
+		
+		socket.onmessage=(event)=>{
+			const chatbox = document.getElementById("chatbox");
+			const userList = document.getElementById("userList");
+
+				if (event.data.startsWith("USERS:")) {
+					const users = event.data.replace("USERS:", "").split(",");
+					userList.innerHTML = users.map(u => `<div class="userBox">${u}</div>`).join(""); 
+				} 
+				else {
+					const div = document.createElement("div");
+					div.className = "message-box";
+					
+					const separatorIndex = event.data.indexOf(":");
+					if (separatorIndex !== -1) {
+						let sender = event.data.substring(0, separatorIndex).trim();
+						let content = event.data.substring(separatorIndex + 1).trim();
+						let isPrivate = false;
+
+						if (sender.startsWith("[Private]")) {
+						    isPrivate = true;
+						    sender = sender.replace("[Private]", "").trim();
+							div.classList.add(sender === name ? "my-message" : "other-message");
+							const displayName = sender === name ? "You" : sender;
+							div.innerHTML = `<strong style="color:red">[Private] ${displayName}</strong>: ${content}`;
+						} 
+						else{
+							div.classList.add(sender === name ? "my-message" : "other-message");
+							const displayName = sender === name ? "You" : sender;
+							div.innerHTML = `<strong style="color:red">${displayName}</strong>: ${content}`;
+						}
+						}
+					
+					else {
+					    div.textContent = event.data;
+					}
+					chatbox.appendChild(div);
+					chatbox.scrollTop = chatbox.scrollHeight;
+				}
+			};
+	}
+	
+	function sendMessage(){
+		const msg=document.getElementById("message").value;
+		if(socket && socket.readyState === WebSocket.OPEN && [...msg].some(c => c.trim() !== "")){
+			socket.send(msg);
+			document.getElementById("message").value="";
+		}
+		else{
+			alert("Message is empty...")
+		}
+	}
+	
+	document.getElementById("message").addEventListener("keydown", function(event) {
+	    if (event.key === "Enter") {
+	        event.preventDefault(); 
+	        sendMessage(); 
+	    }
+	});
+	
+</script>
+	
+</body>
